@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="main.css" />
+    <title>CRUDS</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CRUDS</h1>
+      <p>Create Read Update Delete Search || System Managment For Products</p>
+      <!-- create part -->
+      <div class="create">
+        <input type="text" id="title" placeholder="*title" />
+        <div class="product-info">
+          <input type="number" id="price" placeholder="*price" />
+          <input type="number" id="taxes" placeholder="*taxes" />
+          <input type="number" id="ads" placeholder="ads" />
+          <input type="number" id="discount" placeholder="discount" />
+          <div class="total">Total:<span id="total"></span></div>
+        </div>
+        <input type="number" id="count" placeholder="*count" />
+        <input type="text" id="category" placeholder="*category" />
+        <button id="create">Create</button>
+      </div>
+      <!-- search part -->
+      <div class="search">
+        <input type="text" id="searchby" placeholder="Search by title" />
+        <div class="search-operation">
+          <button id="searchbytitle">Search by title</button>
+          <button id="searchbycategory">Search by category</button>
+        </div>
+        <button id="deleteAll">Delete all</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>TITLE</th>
+            <th>PRICE</th>
+            <th>TAXES</th>
+            <th>ADS</th>
+            <th>DISCOUNT</th>
+            <th>TOTAL</th>
+            <th>CATEGORY</th>
+            <th>UPDATE</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="shadow"></div>
+      <div class="popup">
+        <p>Update Product</p>
+        <input type="text" id="Utitle" placeholder="*title" />
+        <div class="product-info">
+          <input type="number" id="Uprice" placeholder="*price" />
+          <input type="number" id="Utaxes" placeholder="*taxes" />
+          <input type="number" id="Uads" placeholder="ads" />
+          <input type="number" id="Udiscount" placeholder="discount" />
+          <div class="Utotal">Total:<span id="Utotal"></span></div>
+        </div>
+        <input type="text" id="Ucategory" placeholder="*category" />
+        <button id="doUpdate">Update</button>
+        <button id="exit">Exit</button>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
