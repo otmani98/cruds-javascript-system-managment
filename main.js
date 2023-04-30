@@ -272,11 +272,15 @@ searchBy.addEventListener("input", search);
 //searchBy
 searchByTitle.onclick = function () {
   searchBy.placeholder = "Search by title";
-  search();
+  if (searchBy.value) {
+    search();
+  }
 };
 searchByCategory.onclick = function () {
   searchBy.placeholder = "Search by category";
-  search();
+  if (searchBy.value) {
+    search();
+  }
 };
 
 //delete by result of searching
