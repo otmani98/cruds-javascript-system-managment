@@ -151,7 +151,6 @@ window.onload = () => {
 //delete all products
 deleteAll.onclick = function () {
   localStorage.setItem("CrudsData", JSON.stringify([]));
-  deleteAll.innerText = `Delete all`;
   read();
 };
 
@@ -160,6 +159,8 @@ function counterProducts() {
   let length = JSON.parse(localStorage.getItem("CrudsData")).length;
   if (length > 0) {
     deleteAll.innerText = `Delete all (${length})`;
+  } else {
+    deleteAll.innerText = `Delete all`;
   }
 }
 
@@ -224,7 +225,8 @@ exit.onclick = function () {
 
 //update from popup
 update.onclick = function () {
-  let data = JSON.parse(localStorage.getItem("CrudsData"));
+  //here
+
   let product = Object.assign({}, data[index_Update]);
   if (Utitle.value && Utotal.textContent && Ucategory.value) {
     product["title"] = Utitle.value[0].toUpperCase() + Utitle.value.slice(1);
@@ -240,7 +242,7 @@ update.onclick = function () {
   localStorage.setItem("CrudsData", JSON.stringify(data));
   shadow.style.display = "none";
   popup.style.display = "none";
-  // to show the result of searching again after update
+  // to show the result of searching again after update or show the result without searching
   if (searchBy.value) {
     search();
   } else {
@@ -264,12 +266,13 @@ let search = function () {
     result = data.filter((product) => re.test(product["category"]));
   }
   read(result);
+  counterProducts();
 };
 
 //Run search
 searchBy.addEventListener("input", search);
 
-//searchBy
+//searchBy change field and run search
 searchByTitle.onclick = function () {
   searchBy.placeholder = "Search by title";
   if (searchBy.value) {
