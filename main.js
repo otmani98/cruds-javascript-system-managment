@@ -207,7 +207,7 @@ document.addEventListener("click", function (e) {
         if (Uprice.value && Utaxes.value) {
           Utotaldiv.className = "UtotalTrue";
         }
-        shadow.style.height = `${document.body.clientHeight + 100}px`;
+        shadow.style.height = `${document.body.offsetHeight + 200}px`;
         shadow.style.display = "block";
         popup.style.display = "block";
         break;
@@ -227,12 +227,13 @@ update.onclick = function () {
   let data = JSON.parse(localStorage.getItem("CrudsData"));
   let product = Object.assign({}, data[index_Update]);
   if (Utitle.value && Utotal.textContent && Ucategory.value) {
-    product["title"] = Utitle.value;
+    product["title"] = Utitle.value[0].toUpperCase() + Utitle.value.slice(1);
     product["price"] = +Uprice.value;
     product["taxes"] = +Utaxes.value;
     product["ads"] = +Uads.value;
     product["discount"] = +Udiscount.value;
-    product["category"] = Ucategory.value;
+    product["category"] =
+      Ucategory.value[0].toUpperCase() + Ucategory.value.slice(1);
     product["total"] = +Utotal.textContent;
   }
   data.splice(index_Update, 1, product);
