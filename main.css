@@ -68,6 +68,10 @@ button {
   width: 100%;
 }
 
+input {
+  padding: 12px;
+}
+
 .product-info {
   display: flex;
 }
