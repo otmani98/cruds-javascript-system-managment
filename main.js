@@ -12,6 +12,7 @@ let create = document.getElementById("create");
 let searchBy = document.getElementById("searchby");
 let searchByTitle = document.getElementById("searchbytitle");
 let searchByCategory = document.getElementById("searchbycategory");
+let deleteBSR = document.getElementById("deleteBSR");
 let deleteAll = document.getElementById("deleteAll");
 let tbody = document.querySelector("tbody");
 //elements of update in popup block
@@ -28,6 +29,11 @@ let Utotal = document.getElementById("Utotal");
 let Utotaldiv = document.querySelector(".Utotal");
 let exit = document.getElementById("exit");
 let update = document.getElementById("doUpdate");
+
+// to know the index of product we want to update
+let index_Update;
+//for search filter
+let result = [];
 
 //create object data in localstorage if it doesn't exist
 if (!localStorage["CrudsData"]) {
@@ -170,8 +176,6 @@ function emptyValue() {
   total.textContent = "";
 }
 
-// to know the index of product we want to update
-let index_Update;
 //update delete one product
 document.addEventListener("click", function (e) {
   let data = JSON.parse(localStorage.getItem("CrudsData"));
@@ -235,26 +239,28 @@ update.onclick = function () {
   localStorage.setItem("CrudsData", JSON.stringify(data));
   shadow.style.display = "none";
   popup.style.display = "none";
-  read();
+  // to show the result of searching again after update
+  if (searchBy.value) {
+    search();
+  } else {
+    read();
+  }
 };
 
 //search
 let search = function () {
+  if (searchBy.value) {
+    deleteBSR.style.display = "inline";
+  } else {
+    deleteBSR.style.display = "none";
+    read();
+  }
   let data = JSON.parse(localStorage.getItem("CrudsData"));
   let re = new RegExp(`${searchBy.value}`, "i");
-  let result = [];
   if (searchBy.getAttribute("placeholder") === "Search by title") {
-    for (let i = 0; i < data.length; i++) {
-      if (re.test(data[i]["title"])) {
-        result.push(data[i]);
-      }
-    }
-  } else if (searchBy.getAttribute("placeholder") === "Search by category") {
-    for (let i = 0; i < data.length; i++) {
-      if (re.test(data[i]["category"])) {
-        result.push(data[i]);
-      }
-    }
+    result = data.filter((product) => re.test(product["title"]));
+  } else {
+    result = data.filter((product) => re.test(product["category"]));
   }
   read(result);
 };
@@ -269,5 +275,17 @@ searchByTitle.onclick = function () {
 };
 searchByCategory.onclick = function () {
   searchBy.placeholder = "Search by category";
+  search();
+};
+
+//delete by result of searching
+deleteBSR.onclick = function () {
+  let data = JSON.parse(localStorage.getItem("CrudsData"));
+  let ids = [];
+  for (let i = 0; i < result.length; i++) {
+    ids.push(result[i]["id"]);
+  }
+  let newArr = data.filter((product) => !ids.includes(product["id"]));
+  localStorage.setItem("CrudsData", JSON.stringify(newArr));
   search();
 };
