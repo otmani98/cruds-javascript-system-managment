@@ -65,7 +65,12 @@ document.addEventListener("input", function () {
 create.onclick = async function () {
   let data = JSON.parse(localStorage.getItem("CrudsData"));
   let product = {};
-  if (!!title.value && !!total.textContent && !!category.value) {
+  if (
+    !!title.value &&
+    !!total.textContent &&
+    !!category.value &&
+    +count.value < 201
+  ) {
     if (data.length > 0) {
       product["id"] = data[data.length - 1]["id"] + 1;
     } else {
@@ -151,6 +156,7 @@ window.onload = () => {
 //delete all products
 deleteAll.onclick = function () {
   localStorage.setItem("CrudsData", JSON.stringify([]));
+  counterProducts();
   read();
 };
 
@@ -225,8 +231,7 @@ exit.onclick = function () {
 
 //update from popup
 update.onclick = function () {
-  //here
-
+  let data = JSON.parse(localStorage.getItem("CrudsData"));
   let product = Object.assign({}, data[index_Update]);
   if (Utitle.value && Utotal.textContent && Ucategory.value) {
     product["title"] = Utitle.value[0].toUpperCase() + Utitle.value.slice(1);
